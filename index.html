@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Mom!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+      overflow-x: hidden;
+      text-align: center;
+      position: relative;
+      background-image: url(./images/bg.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #6c50f8;
+      padding: 30px 10px;
+      color: white;
+      font-size: 1.8em;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+
+    .emoji {
+      position: fixed;
+      font-size: 10px;
+      animation: fall 10s linear infinite;
+      opacity: 0.8;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    .emoji-container {
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .main-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Centers content horizontally within main-content */
+      width: 100%;
+    }
+
+    .mom-image {
+      margin: 10px auto;
+      width: 95%;
+      max-width: 600px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(12, 18, 26, 0.831);
+    }
+
+    .music-btn {
+      background-color: #f2871c;
+      color: white;
+      padding: 12px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: 12px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .music-btn:hover {
+      background-color: #e60073;
+      transform: scale(1.05);
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      margin: 30px auto;
+      overflow: hidden;
+      width: 95%;
+    }
+
+    .carousel {
+      display: flex;
+      gap: 8px;
+      animation: scroll 40s linear infinite;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    .photo {
+      position: relative;
+      min-width: 150px;
+      height: 120px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(6, 235, 44, 0.272);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+    }
+
+    .message-box {
+      /* Removed margin-top: 30px; auto; and width: 100%; from here */
+      /* The .letter class will now handle centering its contents */
+    }
+
+    .letter {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* This centers the children horizontally */
+      margin: 30px auto; /* Add margin to the letter itself */
+      width: 95%; /* Give it a max-width and center it */
+      max-width: 700px; /* Max width for larger screens */
+    }
+
+    .letter h2 {
+        font-size: 1.8em;
+    }
+
+    .letter p {
+        font-weight: bold;
+        color: #fff;
+        background: rgba(45, 32, 230, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 14px;
+        border-radius: 12px;
+        /* max-width: 90%; This can stay, but the parent .letter's width takes precedence */
+        width: 100%; /* Ensure paragraph takes full width of its parent (.letter) */
+        margin: 20px 0; /* Adjusted margin for centering with flexbox */
+        text-align: center;
+        font-size: 0.95em;
+        line-height: 1.4;
+        box-sizing: border-box; /* Include padding in width */
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 15px;
+      font-size: 0.8em;
+      color: #555;
+      background: #ffe6e6;
+      border-top: 2px solid #ff8c8c;
+      z-index: 2;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 768px) {
+      header {
+        font-size: 1.5em;
+        padding: 25px 10px;
+      }
+      .music-btn {
+        padding: 10px 20px;
+        font-size: 0.95em;
+      }
+      .carousel-wrapper {
+        margin: 20px auto;
+        width: 98%;
+      }
+      .photo {
+        min-width: 120px;
+        height: 100px;
+      }
+      .letter {
+          margin: 20px auto; /* Adjust margin for smaller screens */
+          width: 98%; /* Slightly wider for smaller screens */
+      }
+      .letter h2 {
+        font-size: 1.5em;
+      }
+      .letter p {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      footer {
+        padding: 12px;
+        font-size: 0.75em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        font-size: 1.2em;
+        padding: 20px 5px;
+      }
+      .music-btn {
+        padding: 8px 15px;
+        font-size: 0.85em;
+      }
+      .carousel-wrapper {
+        margin: 15px auto;
+        width: 100%;
+      }
+      .photo {
+        min-width: 100px;
+        height: 80px;
+      }
+      .letter {
+          margin: 15px auto; /* Adjust margin for very small screens */
+          width: 100%; /* Full width on very small screens */
+      }
+      .letter h2 {
+        font-size: 1.3em;
+      }
+      .letter p {
+        font-size: 0.8em;
+        padding: 10px;
+      }
+      footer {
+        padding: 10px;
+        font-size: 0.7em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="emoji-container" id="emoji-container"></div>
+  <header>
+    🎉 Happy Birthday to Our Amazing Mom! 🎉
+  </header>
+
+  <div class="main-content">
+    <div class="carousel-wrapper">
+      <div class="carousel">
+        <div class="photo"><img src="images/photo1.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo2.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo3.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo4.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo5.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo6.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo7.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo8.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo9.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo10.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo1.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+        <div class="photo"><img src="images/photo2.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
+      </div>
+    </div>
+
+    <div id="letter" class="letter">
+      <h2>Dear Mom,</h2>
+      <p>
+        You are the heart of this family. Your strength, your care, and your endless love inspire us every day. Happy Birthday, Mom! 💐
+      </p>
+      <button class="music-btn" onclick="playAudio()">▶️ Click here to Hear my Message</button>
+    </div>
+  </div>
+
+  <footer>
+    Made with ❤️ by ARSEMA — we love you forever, Mom! 🎂
+  </footer>
+
+  <audio id="bg-music" src="birthday.mp3"></audio>
+
+  <script>
+    // Emoji Animation
+    const emojiContainer = document.getElementById('emoji-container');
+    const emojis = ['❤️','💖','💕',"🎂",'💘','💗','🌸','❤️',"🎂","🎈","🎈","🎈","🎈"];
+
+    function createEmoji() {
+      const emoji = document.createElement('div');
+      emoji.classList.add('emoji');
+      emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      emoji.style.left = Math.random() * 100 + 'vw';
+      emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
+      emoji.style.animationDuration = (Math.random() * 6 + 4) + 's';
+      emojiContainer.appendChild(emoji);
+      setTimeout(() => emoji.remove(), 10000);
+    }
+    setInterval(createEmoji, 60);
+
+    // Music and Audio
+    function playMusic() {
+      document.getElementById("bg-music").play();
+    }
+    function playAudio() {
+      document.getElementById("bg-music").play();
+    }
+  </script>
+
+</body>
+</html>
