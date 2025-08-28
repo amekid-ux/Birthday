@@ -1,315 +1,1078 @@
+Tom:
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday Mom!</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #f5f7fa, #c3cfe2);
-      overflow-x: hidden;
-      text-align: center;
-      position: relative;
-      background-image: url(./images/bg.jpg);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriConnect - Mobile App Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    header {
-      background-color: #6c50f8;
-      padding: 30px 10px;
-      color: white;
-      font-size: 1.8em;
-      font-weight: bold;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      z-index: 2;
-    }
+        body {
+            background: linear-gradient(135deg, #000000, #000000);
+            /* background-image: url("./portrate_agri.webp"); */
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
 
-    .emoji {
-      position: fixed;
-      font-size: 10px;
-      animation: fall 10s linear infinite;
-      opacity: 0.8;
-      z-index: 0;
-      pointer-events: none;
-    }
+        .app-container {
+            width: 375px;
+            max-width: 100%;
+            height: 812px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(to bottom, #ffffff, #f5f5f5);
+        }
 
-    @keyframes fall {
-      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-    }
+        /* Themes */
+        :root {
+            --green: #27ae60;
+            --orange: #f39c12;
+            --light-green: #e8f5e9;
+            --light-orange: #fff3e0;
+            --text-color: #2c3e50;
+            --accent: #3498db;
+        }
 
-    .emoji-container {
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
+        /* Screens */
+        .screen {
+            display: none;
+            flex-direction: column;
+            background-image: URL("./portrate_agri.webp");
+            height: 100%;
+            overflow-y: auto;
+            padding-bottom: 70px; /* For bottom bar */
+            animation: fadeInScreen 0.5s ease-in-out;
+        }
 
-    .main-content {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center; /* Centers content horizontally within main-content */
-      width: 100%;
-    }
+        .screen.active {
+            display: flex;
+        }
 
-    .mom-image {
-      margin: 10px auto;
-      width: 95%;
-      max-width: 600px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(12, 18, 26, 0.831);
-    }
+        @keyframes fadeInScreen {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .music-btn {
-      background-color: #f2871c;
-      color: white;
-      padding: 12px 25px;
-      font-size: 1em;
-      border: none;
-      border-radius: 12px;
-      margin-top: 20px;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-    }
+        /* Header */
+        .header {
+            background: linear-gradient(to right, var(--green), var(--orange));
+            color: #fff;
+            padding: 20px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-    .music-btn:hover {
-      background-color: #e60073;
-      transform: scale(1.05);
-    }
+        .header h2 {
+            font-size: 20px;
+            font-weight: 600;
+        }
 
-    .carousel-wrapper {
-      position: relative;
-      margin: 30px auto;
-      overflow: hidden;
-      width: 95%;
-    }
+        .header i {
+            font-size: 22px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
 
-    .carousel {
-      display: flex;
-      gap: 8px;
-      animation: scroll 40s linear infinite;
-    }
+        .header i:hover {
+            transform: rotate(15deg);
+        }
 
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    
-    .photo {
-      position: relative;
-      min-width: 150px;
-      height: 120px;
-      flex-shrink: 0;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(6, 235, 44, 0.272);
-    }
+        /* Bottom Bar */
+        .bottom-bar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: #fff;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
 
-    .photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+        .bottom-bar .tab {
+            text-align: center;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            padding: 5px;
+        }
 
-    .gradient {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 30px;
-      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
-    }
+        .bottom-bar .tab.active {
+            color: var(--orange);
+            transform: scale(1.1);
+        }
 
-    .message-box {
-      /* Removed margin-top: 30px; auto; and width: 100%; from here */
-      /* The .letter class will now handle centering its contents */
-    }
+        .bottom-bar .tab i {
+            font-size: 26px;
+            margin-bottom: 6px;
+        }
 
-    .letter {
-      display: flex;
-      flex-direction: column;
-      align-items: center; /* This centers the children horizontally */
-      margin: 30px auto; /* Add margin to the letter itself */
-      width: 95%; /* Give it a max-width and center it */
-      max-width: 700px; /* Max width for larger screens */
-    }
+        .bottom-bar .tab span {
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+        }
 
-    .letter h2 {
-        font-size: 1.8em;
-    }
+        /* Content Area */
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: linear-gradient(to bottom, #f9f9f9, #ffffff);
+        }
 
-    .letter p {
-        font-weight: bold;
-        color: #fff;
-        background: rgba(45, 32, 230, 0.4);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(8px);
-        padding: 14px;
-        border-radius: 12px;
-        /* max-width: 90%; This can stay, but the parent .letter's width takes precedence */
-        width: 100%; /* Ensure paragraph takes full width of its parent (.letter) */
-        margin: 20px 0; /* Adjusted margin for centering with flexbox */
-        text-align: center;
-        font-size: 0.95em;
-        line-height: 1.4;
-        box-sizing: border-box; /* Include padding in width */
-    }
+/* Cards */
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
 
-    footer {
-      margin-top: auto;
-      padding: 15px;
-      font-size: 0.8em;
-      color: #555;
-      background: #ffe6e6;
-      border-top: 2px solid #ff8c8c;
-      z-index: 2;
-      position: relative;
-      width: 100%;
-      box-sizing: border-box;
-    }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
 
-    /* Media Queries for Responsiveness */
-    @media (max-width: 768px) {
-      header {
-        font-size: 1.5em;
-        padding: 25px 10px;
-      }
-      .music-btn {
-        padding: 10px 20px;
-        font-size: 0.95em;
-      }
-      .carousel-wrapper {
-        margin: 20px auto;
-        width: 98%;
-      }
-      .photo {
-        min-width: 120px;
-        height: 100px;
-      }
-      .letter {
-          margin: 20px auto; /* Adjust margin for smaller screens */
-          width: 98%; /* Slightly wider for smaller screens */
-      }
-      .letter h2 {
-        font-size: 1.5em;
-      }
-      .letter p {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      footer {
-        padding: 12px;
-        font-size: 0.75em;
-      }
-    }
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            transition: transform 0.3s;
+        }
 
-    @media (max-width: 480px) {
-      header {
-        font-size: 1.2em;
-        padding: 20px 5px;
-      }
-      .music-btn {
-        padding: 8px 15px;
-        font-size: 0.85em;
-      }
-      .carousel-wrapper {
-        margin: 15px auto;
-        width: 100%;
-      }
-      .photo {
-        min-width: 100px;
-        height: 80px;
-      }
-      .letter {
-          margin: 15px auto; /* Adjust margin for very small screens */
-          width: 100%; /* Full width on very small screens */
-      }
-      .letter h2 {
-        font-size: 1.3em;
-      }
-      .letter p {
-        font-size: 0.8em;
-        padding: 10px;
-      }
-      footer {
-        padding: 10px;
-        font-size: 0.7em;
-      }
-    }
-  </style>
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card h3 {
+            color: var(--green);
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        .stars {
+            color: var(--orange);
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        /* Forms */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input, select, button {
+            margin-bottom: 12px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--orange);
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(to right, var(--green), var(--orange));
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, var(--orange), var(--green));
+            transform: scale(1.02);
+        }
+
+        /* FAB */
+        .fab {
+            position: absolute;
+            bottom: 90px;
+            right: 25px;
+            background: linear-gradient(to bottom, var(--green), var(--orange));
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .fab:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        .fab-menu {
+            position: absolute;
+            bottom: 160px;
+            right: 25px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: none;
+            overflow: hidden;
+        }
+
+        .fab-menu.active {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fab-menu div {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+            color: var(--text-color);
+        }
+
+        .fab-menu div:hover {
+            background: var(--light-orange);
+        }
+
+        .fab-menu div:last-child {
+            border-bottom: none;
+        }
+
+        /* Popups */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .popup.active {
+            display: flex;
+        }
+
+.popup-content {
+            background: #fff;
+            padding: 25px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 320px;
+            text-align: center;
+            animation: popIn 0.4s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .video-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .video-card iframe {
+            width: 100%;
+            height: 120px;
+        }
+
+        .video-card p {
+            padding: 5px;
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            background: #f5f5f5;
+            border: none;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* USSD Simulation */
+        .ussd-screen {
+            background: #1c1c1c;
+            color: #00ff00;
+            padding: 25px;
+            height: 100%;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Tracking Map */
+        .map {
+            width: 100%;
+            height: 250px;
+            background: url('https://miro.medium.com/0*iRgiB6y8atMchG0o.jpg') center / cover no-repeat;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .timeline {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .timeline li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .timeline li:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(39,174,96,0.5);
+        }
+
+        .timeline li.active:before {
+            background: var(--orange);
+        }
+
+/* Responsive */
+        @media (max-width: 375px) {
+            .app-container {
+                border-radius: 0;
+                border: none;
+                height: 100vh;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="app-container">
+        <!-- Login As Screen -->
+        <div id="login-as" class="screen active">
+            <div class="header">
+                <h2>AgriConnect</h2>
+            </div>
+            <div class="content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <h3 style="color: var(--green); margin-bottom: 25px; font-size: 24px;">Welcome! Login As</h3>
+                <div class="card" onclick="showLogin('farmer')">
+                    <!-- <img src="https://images.unsplash.com/photo-1500595046743-ee4f3ed0356d?q=80&w=2070" alt="Farmer"> -->
+                    <h3>Farmer</h3>
+                    <p>Sell your produce, access AI tools & more</p>
+                </div>
+                <div class="card" onclick="showLogin('buyer')">
+                    <!-- <img src="https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1932" alt="Buyer"> -->
+                    <h3>Buyer</h3>
+                    <p>Find fresh crops, track deliveries</p>
+                </div>
+                <div class="card" onclick="showLogin('logistic')">
+                    <!-- <img src="https://images.unsplash.com/photo-1581093458791-9f02909ef0a1?q=80&w=2070" alt="Logistic"> -->
+                    <h3>Logistic Provider</h3>
+                    <p>Offer services, list equipment</p>
+                </div>
+            </div>
+        </div>
 
-  <div class="emoji-container" id="emoji-container"></div>
-  <header>
-    🎉 Happy Birthday to Our Amazing Mom! 🎉
-  </header>
+        <!-- Farmer Login -->
+        <div id="farmer-login" class="screen">
+            <div class="header">
+                <i class="fas fa-arrow-left" onclick="backToLoginAs()"></i>
+                <h2>Farmer Login/Register</h2>
+            </div>
+            <div class="content">
+                <form onsubmit="loginFarmer(); return false;">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <input type="text" placeholder="Farm Location (e.g., City, State)" required>
+                    <select required>
+                        <option value="">Grade Level / Experience</option>
+                        <option>Beginner</option>
+                        <option>Intermediate</option>
+                        <option>Advanced</option>
+                    </select>
+                    <input type="password" placeholder="Password" required>
+                    <button type="submit">Continue</button>
+                </form>
+                <p style="text-align: center; color: var(--text-color);"><a href="#" onclick="alert('Password reset link sent to your phone!')" style="color: var(--accent);">Forgot Password?</a></p>
+            </div>
+        </div>
 
-  <div class="main-content">
-    <div class="carousel-wrapper">
-      <div class="carousel">
-        <div class="photo"><img src="images/photo1.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo2.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo3.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo4.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo5.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo6.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo7.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo8.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo9.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo10.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo1.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-        <div class="photo"><img src="images/photo2.jpg" alt="Mom's Photo"><div class="gradient"></div></div>
-      </div>
+<!-- Buyer Login -->
+        <div id="buyer-login" class="screen">
+            <div class="header">
+                <i class="fas fa-arrow-left" onclick="backToLoginAs()"></i>
+                <h2>Buyer Login/Register</h2>
+            </div>
+            <div class="content">
+                <form onsubmit="loginBuyer(); return false;">
+                    <input type="text" placeholder="Organization Name" required>
+                    <input type="text" placeholder="Organization Address" required>
+                    <label style="font-size: 14px; color: var(--text-color); margin-bottom: 5px;">Upload License Photo</label>
+                    <input type="file" accept="image/*" onchange="previewImage(this, 'buyer-license-preview')">
+                    <img id="buyer-license-preview" style="width:100%; height:180px; object-fit:cover; border-radius:10px; display:none; margin-bottom:12px;">
+                    <input type="tel" placeholder="Phone Number" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <button type="submit">Continue</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Logistic Login -->
+        <div id="logistic-login" class="screen">
+            <div class="header">
+                <i class="fas fa-arrow-left" onclick="backToLoginAs()"></i>
+                <h2>Logistic Provider Login/Register</h2>
+            </div>
+            <div class="content">
+                <form onsubmit="loginLogistic(); return false;">
+                    <input type="text" placeholder="Name (Individual/Company)" required>
+                    <label style="font-size: 14px; color: var(--text-color); margin-bottom: 5px;">Upload License Card</label>
+                    <input type="file" accept="image/*" onchange="previewImage(this, 'logistic-license-preview')">
+                    <img id="logistic-license-preview" style="width:100%; height:180px; object-fit:cover; border-radius:10px; display:none; margin-bottom:12px;">
+                    <label style="font-size: 14px; color: var(--text-color); margin-bottom: 5px;">Upload Identity Card</label>
+                    <input type="file" accept="image/*" onchange="previewImage(this, 'logistic-id-preview')">
+                    <img id="logistic-id-preview" style="width:100%; height:180px; object-fit:cover; border-radius:10px; display:none; margin-bottom:12px;">
+                    <input type="tel" placeholder="Phone Number" required>
+                    <button type="submit">Continue</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Farmer Choice Screen -->
+        <div id="farmer-choice" class="screen">
+            <div class="header">
+                <h2>Farmer Dashboard</h2>
+                <i class="fas fa-user-circle" onclick="alert('Edit Profile: Update name, location, etc.')"></i>
+            </div>
+            <div class="content" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <h3 style="color: var(--green); font-size: 22px; margin-bottom: 30px;">Select Access Mode</h3>
+                <div class="card" onclick="showUssd()">
+                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1926" alt="USSD">
+                    <h3>USSD Mode</h3>
+                    <p>Offline, text-based access for basic functions</p>
+                </div>
+                <div class="card" onclick="showFarmerGraphics()">
+                    <img src="https://images.unsplash.com/photo-1524661135-4390950d2a36?q=80&w=1932" alt="Graphics">
+                    <h3>Graphics Mode</h3>
+                    <p>Full visual interface with AI & more</p>
+                </div>
+            </div>
+            <button style="position: absolute; bottom: 20px; width: calc(100% - 40px); margin: 0 20px; background: linear-gradient(to right, var(--orange), var(--green)); font-size: 16px;" onclick="alert('Calling Support... +123-456-7890')">Call Support</button>
+        </div>
+
+<!-- USSD Mode -->
+        <div id="ussd" class="screen">
+            <div class="header">
+                <i class="fas fa-arrow-left" onclick="backToFarmerChoice()"></i>
+                <h2>USSD Offline Mode</h2>
+            </div>
+            <div class="ussd-screen">
+                <p>Welcome to Offline AgriConnect!</p>
+                <p>1. List Your Produce</p>
+                <p>2. Check Market Prices</p>
+                <p>3. Request Logistics</p>
+                <p>4. Get Farming Tips</p>
+                <p>0. Exit</p>
+                <input type="text" placeholder="Enter your choice..." style="background: #333; color: #00ff00; width: 100%; border: none; padding: 10px; font-family: monospace;">
+            </div>
+        </div>
+
+        <!-- Farmer Graphics Dashboard -->
+        <div id="farmer-graphics" class="screen">
+            <div class="header">
+                <h2>AgriConnect Farmer</h2>
+                <i class="fas fa-user-circle" onclick="alert('Edit Profile: Update name, location, etc.')"></i>
+            </div>
+            <div class="content" id="farmer-tab-content">
+                <!-- Dynamic tab content -->
+            </div>
+            <div class="bottom-bar">
+                <div class="tab" onclick="showFarmerTab('tutorials')">
+                    <i class="fas fa-video"></i>
+                    <span>Tutorials</span>
+                </div>
+                <div class="tab" onclick="showFarmerTab('logistics')">
+                    <i class="fas fa-tools"></i>
+                    <span>Logistics</span>
+                </div>
+                <div class="tab" onclick="showFarmerTab('market')">
+                    <i class="fas fa-store"></i>
+                    <span>Market</span>
+                </div>
+                <div class="tab" onclick="showFarmerTab('post')">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Post</span>
+                </div>
+            </div>
+            <div class="fab" onclick="toggleFabMenu()">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <div class="fab-menu" id="fab-menu">
+                <div onclick="showPopup('disease')">AI Disease Detection</div>
+                <div onclick="showPopup('soil')">Soil Detection</div>
+                <div onclick="alert('Calling Center... +123-456-7890')">Call Center</div>
+            </div>
+        </div>
+
+        <!-- Buyer Dashboard -->
+        <div id="buyer-dashboard" class="screen">
+            <div class="header">
+                <h2>Buyer Dashboard</h2>
+                <i class="fas fa-bell" onclick="alert('New Offers: 3 Discounts Available!')"></i>
+            </div>
+            <div class="content" id="buyer-tab-content">
+                <!-- Dynamic tab content -->
+            </div>
+            <div class="bottom-bar">
+                <div class="tab" onclick="showBuyerTab('offers')">
+                    <i class="fas fa-tags"></i>
+                    <span>Offers</span>
+                </div>
+                <div class="tab" onclick="showBuyerTab('drivers')">
+                    <i class="fas fa-truck-fast"></i>
+                    <span>Drivers</span>
+                </div>
+                <div class="tab" onclick="showBuyerTab('sells')">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span>Sells</span>
+                </div>
+                <div class="tab" onclick="showBuyerTab('tracking')">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Tracking</span>
+                </div>
+            </div>
+        </div>
+
+<!-- Logistic Dashboard -->
+        <div id="logistic-dashboard" class="screen">
+            <div class="header">
+                <h2>Logistic Dashboard</h2>
+                <i class="fas fa-user-circle" onclick="alert('Edit Profile: Update services, vehicles, etc.')"></i>
+            </div>
+            <div class="content" id="logistic-tab-content">
+                <!-- Dynamic tab content -->
+            </div>
+            <div class="bottom-bar">
+                <div class="tab" onclick="showLogisticTab('goods')">
+                    <i class="fas fa-box-open"></i>
+                    <span>Goods List</span>
+                </div>
+                <div class="tab" onclick="showLogisticTab('post')">
+                    <i class="fas fa-upload"></i>
+                    <span>Post New</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popups -->
+        <div class="popup" id="disease-popup">
+            <div class="popup-content">
+                <h3>AI Disease Detection</h3>
+                <p>Upload crop photo for analysis</p>
+                <input type="file" accept="image/*">
+                <button onclick="alert('Analysis: Pest Detected - Aphids. Recommendation: Use organic spray.')">Analyze</button>
+                <button onclick="closePopup('disease')">Close</button>
+            </div>
+        </div>
+        <div class="popup" id="soil-popup">
+            <div class="popup-content">
+                <h3>Soil Health Analysis</h3>
+                <p>Upload soil sample image</p>
+                <input type="file" accept="image/*">
+                <button onclick="alert('Analysis: pH 6.5 - Slightly Acidic. Add lime for balance.')">Analyze</button>
+                <button onclick="closePopup('soil')">Close</button>
+            </div>
+        </div>
+        <div class="popup" id="buy-popup">
+            <div class="popup-content">
+                <h3>Purchase Crop</h3>
+                <input type="number" placeholder="Enter amount in kg" min="1">
+                <button onclick="showPaymentPopup()">Proceed to Payment</button>
+                <button onclick="closePopup('buy')">Cancel</button>
+            </div>
+        </div>
+        <div class="popup" id="payment-popup">
+            <div class="popup-content">
+                <h3>Secure Payment</h3>
+                <input type="text" placeholder="Card Number (e.g., 1234 5678 9012 3456)">
+                <input type="text" placeholder="Expiry Date (MM/YY)">
+                <input type="text" placeholder="CVV">
+                <button onclick="alert('Payment Processed Successfully! Order Placed.'); closePopup('payment')">Pay Now</button>
+                <button onclick="closePopup('payment')">Cancel</button>
+            </div>
+        </div>
     </div>
 
-    <div id="letter" class="letter">
-      <h2>Dear Mom,</h2>
-      <p>
-        You are the heart of this family. Your strength, your care, and your endless love inspire us every day. Happy Birthday, Mom! 💐
-      </p>
-      <button class="music-btn" onclick="playAudio()">▶️ Click here to Hear my Message</button>
-    </div>
-  </div>
+    <script>
+        // Navigation Functions
+        function showLogin(role) {
+            document.getElementById('login-as').classList.remove('active');
+            document.getElementById(role + '-login').classList.add('active');
+        }
 
-  <footer>
-    Made with ❤️ by ARSEMA — we love you forever, Mom! 🎂
-  </footer>
+        function backToLoginAs() {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('login-as').classList.add('active');
+        }
 
-  <audio id="bg-music" src="birthday.mp3"></audio>
+        function loginFarmer() {
+            document.getElementById('farmer-login').classList.remove('active');
+            document.getElementById('farmer-choice').classList.add('active');
+        }
 
-  <script>
-    // Emoji Animation
-    const emojiContainer = document.getElementById('emoji-container');
-    const emojis = ['❤️','💖','💕',"🎂",'💘','💗','🌸','❤️',"🎂","🎈","🎈","🎈","🎈"];
+        function loginBuyer() {
+            document.getElementById('buyer-login').classList.remove('active');
+            document.getElementById('buyer-dashboard').classList.add('active');
+            showBuyerTab('offers');
+        }
 
-    function createEmoji() {
-      const emoji = document.createElement('div');
-      emoji.classList.add('emoji');
-      emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-      emoji.style.left = Math.random() * 100 + 'vw';
-      emoji.style.fontSize = (Math.random() * 20 + 20) + 'px';
-      emoji.style.animationDuration = (Math.random() * 6 + 4) + 's';
-      emojiContainer.appendChild(emoji);
-      setTimeout(() => emoji.remove(), 10000);
-    }
-    setInterval(createEmoji, 60);
+        function loginLogistic() {
+            document.getElementById('logistic-login').classList.remove('active');
+            document.getElementById('logistic-dashboard').classList.add('active');
+            showLogisticTab('goods');
+        }
 
-    // Music and Audio
-    function playMusic() {
-      document.getElementById("bg-music").play();
-    }
-    function playAudio() {
-      document.getElementById("bg-music").play();
-    }
-  </script>
+function showUssd() {
+            document.getElementById('farmer-choice').classList.remove('active');
+            document.getElementById('ussd').classList.add('active');
+        }
 
-</body>
-</html>
+        function backToFarmerChoice() {
+            document.getElementById('ussd').classList.remove('active');
+            document.getElementById('farmer-choice').classList.add('active');
+        }
+
+        function showFarmerGraphics() {
+            document.getElementById('farmer-choice').classList.remove('active');
+            document.getElementById('farmer-graphics').classList.add('active');
+            showFarmerTab('tutorials');
+        }
+
+        // Farmer Tabs
+        function showFarmerTab(tab) {
+            const content = document.getElementById('farmer-tab-content');
+            content.innerHTML = '';
+            document.querySelectorAll('.bottom-bar .tab').forEach(t => t.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            if (tab === 'tutorials') {
+                content.innerHTML = `
+                    <div class="search-bar"><input type="text" placeholder="Search Tutorials..."></div>
+                    <div class="video-grid">
+                        <div class="video-card"><iframe src="https://www.youtube.com/embed/wKTrNtlNK_g" frameborder="0" allowfullscreen></iframe><p>How to Mix Pesticides Safely</p></div>
+                        <div class="video-card"><iframe src="https://www.youtube.com/embed/xLVF_Rex_eE" frameborder="0" allowfullscreen></iframe><p>Advanced Farming Techniques</p></div>
+                        <div class="video-card"><iframe src="https://www.youtube.com/embed/AtItW-jSKhA" frameborder="0" allowfullscreen></iframe><p>Soil Preparation Guide</p></div>
+                        <div class="video-card"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe><p>Crop Rotation Basics</p></div>
+                    </div>
+                `;
+            } else if (tab === 'logistics') {
+                content.innerHTML = `
+                    <div class="search-bar"><input type="text" placeholder="Search Equipment & Supplies..."></div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1581093458791-9f02909ef0a1?q=80&w=2070" alt="Tractor">
+                        <h3>Tractor Rental</h3>
+                        <p>Daily Rate: $50 | Location: Nearby Farm Depot | Available Now</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <button onclick="alert('Added to Cart: Tractor Rental')">Add to Cart</button>
+                    </div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1621605815971-fbc84d1094ab?q=80&w=2070" alt="Pesticide">
+                        <h3>Organic Pesticide</h3>
+                        <p>Price: $20/kg | For Sale | High Efficacy</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                        <button onclick="alert('Added to Cart: Organic Pesticide')">Add to Cart</button>
+                    </div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1500595046743-ee4f3ed0356d?q=80&w=2070" alt="Generator">
+                        <h3>Portable Generator</h3>
+                        <p>Rent: $30/day | Power: 5kW | Delivery Available</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></div>
+                        <button onclick="alert('Added to Cart: Portable Generator')">Add to Cart</button>
+                    </div>
+                `;
+            } else if (tab === 'market') {
+
+content.innerHTML = `
+                    <div class="search-bar"><input type="text" placeholder="Search Market Offers..."></div>
+                    <h4 style="color: var(--green); margin-bottom: 15px;">Your Current Posts</h4>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1590779033100-9f60a05a013d?q=80&w=1974" alt="Apples">
+                        <h3>Fresh Apples</h3>
+                        <p>Quantity: 200kg | Price: $1.8/kg | Location: Apple Orchard <i class="fas fa-map-marker-alt"></i> | Status: Ripe & Ready</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;"><p>Edit or Delete Post</p><button onclick="alert('Post Edited')">Edit</button></div>
+                    </div>
+                    <h4 style="color: var(--green); margin-bottom: 15px;">Other Farmers' Offers</h4>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1618897996318-5a901fa6ca71?q=80&w=1974" alt="Tomatoes">
+                        <h3>Organic Tomatoes</h3>
+                        <p>Seller: Jane Farms | 150kg | $2.2/kg | Location: Tomato Fields <i class="fas fa-map-marker-alt"></i> | Status: Fresh</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;"><p>Contact Seller for Bulk Deals</p></div>
+                    </div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1607309089535-9ff11881b991?q=80&w=1976" alt="Bananas">
+                        <h3>Ripe Bananas</h3>
+                        <p>Seller: Tropical Growers | 300kg | $1.5/kg | Location: Banana Plantation <i class="fas fa-map-marker-alt"></i> | Status: Ready for Harvest</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;"><p>Seasonal Discount Available</p></div>
+                    </div>
+                `;
+            } else if (tab === 'post') {
+                content.innerHTML = `
+                    <h3 style="color: var(--green); margin-bottom: 20px; text-align: center;">Post New Produce for Sale</h3>
+                    <form onsubmit="alert('Produce Posted Successfully! It will appear in Market.'); return false;">
+                        <input type="number" placeholder="Amount in kg (e.g., 100)" required min="1">
+                        <input type="number" placeholder="Price per kg (e.g., 2.5)" required step="0.01">
+                        <input type="text" placeholder="Location (e.g., Farmville, State)" required>
+                        <input type="text" placeholder="Crop Type (e.g., Apples)" required>
+                        <input type="text" placeholder="Status (e.g., Fresh, Ripe)" required>
+                        <label style="font-size: 14px; color: var(--text-color); margin-bottom: 5px;">Upload Crop Image</label>
+                        <input type="file" accept="image/*" onchange="previewImage(this, 'post-preview')">
+                        <img id="post-preview" style="width:100%; height:180px; object-fit:cover; border-radius:10px; display:none; margin-bottom:12px;">
+                        <button type="submit">Post to Market</button>
+                    </form>
+                `;
+            }
+        }
+
+// Buyer Tabs - Expanded with more content
+        function showBuyerTab(tab) {
+            const content = document.getElementById('buyer-tab-content');
+            content.innerHTML = '';
+            document.querySelectorAll('.bottom-bar .tab').forEach(t => t.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            if (tab === 'offers') {
+                content.innerHTML = `
+                    <div class="search-bar"><input type="text" placeholder="Search Discounted Offers..."></div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1590779033100-9f60a05a013d?q=80&w=1974" alt="Apples Offer">
+                        <h3>Apples - 25% Off!</h3>
+                        <p>Farmer: John Doe | Available: 200kg | Location: Orchard Valley <i class="fas fa-map-marker-alt"></i> | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;">
+                            <p>Price: $1.35/kg (Original $1.8) | Status: Fresh | Harvest Date: Aug 25</p>
+                            <button onclick="showPopup('buy')">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1618897996318-5a901fa6ca71?q=80&w=1974" alt="Tomatoes Offer">
+                        <h3>Tomatoes - 15% Off</h3>
+                        <p>Farmer: Jane Smith | Available: 150kg | Location: Sunny Fields <i class="fas fa-map-marker-alt"></i> | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;">
+                            <p>Price: $1.87/kg (Original $2.2) | Organic Certified | Delivery Options Available</p>
+                            <button onclick="showPopup('buy')">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1607309089535-9ff11881b991?q=80&w=1976" alt="Bananas Offer">
+                        <h3>Bananas - 20% Off</h3>
+                        <p>Farmer: Tropical Farms | Available: 300kg | Location: Banana Grove <i class="fas fa-map-marker-alt"></i> | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;">
+                            <p>Price: $1.2/kg (Original $1.5) | Ripe & Sweet | Bulk Discounts</p>
+                            <button onclick="showPopup('buy')">Buy Now</button>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'drivers') {
+                content.innerHTML = `
+                    <div class="search-bar"><input type="text" placeholder="Search Drivers by Location or Type..."></div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1581093458791-9f02909ef0a1?q=80&w=2070" alt="Driver Mike">
+                        <h3>Driver: Mike Transport</h3>
+                        <p>Vehicle: Heavy Truck | Service Area: City to Rural Farms | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+
+<div class="detail" style="display:none; margin-top:10px;">
+                            <p>Price: $0.5/km | Capacity: 1000kg | Reviews: Reliable & On-Time | Contact: +123-456 | Availability: 24/7</p>
+                            <button onclick="alert('Driver Selected: Mike Transport. Confirmation Sent.')">Select Driver</button>
+                        </div>
+                    </div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1524661135-4390950d2a36?q=80&w=1932" alt="Driver Lisa">
+                        <h3>Driver: Lisa Logistics</h3>
+                        <p>Vehicle: Van | Service Area: Local Deliveries | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;">
+                            <p>Price: $0.4/km | Capacity: 500kg | Reviews: Careful Handling | Contact: +987-654 | Availability: Weekdays</p>
+                            <button onclick="alert('Driver Selected: Lisa Logistics. Confirmation Sent.')">Select Driver</button>
+                        </div>
+                    </div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1500595046743-ee4f3ed0356d?q=80&w=2070" alt="Driver Alex">
+                        <h3>Driver: Alex Freight</h3>
+                        <p>Vehicle: Pickup | Service Area: Inter-City | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;">
+                            <p>Price: $0.6/km | Capacity: 800kg | Reviews: Fast & Secure | Contact: +555-123 | Availability: Full-Time</p>
+                            <button onclick="alert('Driver Selected: Alex Freight. Confirmation Sent.')">Select Driver</button>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'sells') {
+                content.innerHTML = `
+                    <div class="search-bar"><input type="text" placeholder="Search Regular Sells..."></div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1532499016263-6f7c3ab270f0?q=80&w=1974" alt="Potatoes">
+                        <h3>Potatoes</h3>
+                        <p>Farmer: Green Acres | Available: 400kg | Location: Potato Fields <i class="fas fa-map-marker-alt"></i> | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;">
+                            <p>Price: $0.8/kg | High Quality | No Discounts | Bulk Orders Welcome</p>
+                            <button onclick="showPopup('buy')">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1550948308-236a30277895?q=80&w=1974" alt="Carrots">
+                        <h3>Carrots</h3>
+                        <p>Farmer: Veggie Valley | Available: 250kg | Location: Carrot Farms <i class="fas fa-map-marker-alt"></i> | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;">
+                            <p>Price: $1.1/kg | Freshly Harvested | Standard Pricing</p>
+
+<button onclick="showPopup('buy')">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?q=80&w=1974" alt="Onions">
+                        <h3>Onions</h3>
+                        <p>Farmer: Root Growers | Available: 350kg | Location: Onion Beds <i class="fas fa-map-marker-alt"></i> | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;">
+                            <p>Price: $0.9/kg | Premium Variety | Regular Sale</p>
+                            <button onclick="showPopup('buy')">Buy Now</button>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'tracking') {
+                content.innerHTML = `
+                    <h3 style="color: var(--green); margin-bottom: 20px; text-align: center;">Track Your Orders</h3>
+                    <div class="card">
+                        <div class="map"></div>
+                        <h4>Order #12345 - Apples</h4>
+                        <ul class="timeline">
+                            <li class="active">Order Placed</li>
+                            <li class="active">Picked Up from Farm</li>
+                            <li>In Transit</li>
+                            <li>Delivered</li>
+                        </ul>
+                        <p>ETA: 1 hour 30 min | Driver: Mike | Status: En Route</p>
+                        <input type="text" placeholder="Message Driver..." style="margin-top:10px;">
+                        <button onclick="alert('Message Sent to Driver')">Send</button>
+                    </div>
+                    <div class="card">
+                        <div class="map"></div>
+                        <h4>Order #67890 - Tomatoes</h4>
+                        <ul class="timeline">
+                            <li class="active">Order Placed</li>
+                            <li>Picked Up from Farm</li>
+                            <li>In Transit</li>
+                            <li>Delivered</li>
+                        </ul>
+                        <p>ETA: 45 min | Driver: Lisa | Status: Preparing</p>
+                        <input type="text" placeholder="Message Driver..." style="margin-top:10px;">
+                        <button onclick="alert('Message Sent to Driver')">Send</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Logistic Tabs - Expanded with more content
+        function showLogisticTab(tab) {
+            const content = document.getElementById('logistic-tab-content');
+            content.innerHTML = '';
+            document.querySelectorAll('.bottom-bar .tab').forEach(t => t.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+if (tab === 'goods') {
+                content.innerHTML = `
+                    <div class="search-bar"><input type="text" placeholder="Search Goods & Services..."></div>
+                    <h4 style="color: var(--green); margin-bottom: 15px;">Your Provided Goods/Services</h4>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1581093458791-9f02909ef0a1?q=80&w=2070" alt="Tractor">
+                        <h3>Tractor Rental</h3>
+                        <p>Type: Rent | Price: $50/day | Location: Warehouse A | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;"><p>Availability: 5 Units | Description: Heavy-duty for large farms</p></div>
+                    </div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1621605815971-fbc84d1094ab?q=80&w=2070" alt="Pesticide">
+                        <h3>Pesticide Supply</h3>
+                        <p>Type: Sale | Price: $20/kg | Location: Store B | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;"><p>Quantity: 100kg | Description: Eco-friendly formula</p></div>
+                    </div>
+                    <h4 style="color: var(--green); margin-bottom: 15px;">Other Providers' Goods</h4>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1500595046743-ee4f3ed0356d?q=80&w=2070" alt="Generator">
+                        <h3>Generator Rental (Competitor)</h3>
+                        <p>Provider: Power Pros | Type: Rent | Price: $35/day | Location: Depot C | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;"><p>Compare prices to adjust yours</p></div>
+                    </div>
+                    <div class="card" onclick="expandCard(this)">
+                        <img src="https://images.unsplash.com/photo-1532499016263-6f7c3ab270f0?q=80&w=2070" alt="Fertilizer">
+                        <h3>Fertilizer Sale (Competitor)</h3>
+                        <p>Provider: Soil Boost | Type: Sale | Price: $15/bag | Location: Shop D | Rating:</p>
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i></div>
+                        <div class="detail" style="display:none; margin-top:10px;"><p>Organic option - Benchmark your pricing</p></div>
+                    </div>
+                `;
+            } else if (tab === 'post') {
+                content.innerHTML = `
+                    <h3 style="color: var(--green); margin-bottom: 20px; text-align: center;">Post New Good/Service</h3>
+                    <form onsubmit="alert('Good/Service Posted Successfully! Visible in Goods List.'); return false;">
+                        <select id="logistic-type" onchange="toggleLogisticForm()" required>
+                            <option value="">Select Type: Delivery or Provider</option>
+                            <option value="delivery">Delivery Service</option>
+                            <option value="provider">Goods Provider</option>
+                        </select>
+                        <div id="delivery-form" style="display:none;">
+
+<input type="text" placeholder="Vehicle Type (e.g., Truck, Van)" required>
+                            <input type="number" placeholder="Price per km (e.g., 0.5)" required step="0.01">
+                            <input type="text" placeholder="Service Locations (e.g., City A to Farm B)" required>
+                            <input type="number" placeholder="Max Capacity in kg (e.g., 1000)" min="1">
+                        </div>
+                        <div id="provider-form" style="display:none;">
+                            <input type="text" placeholder="Good Type (e.g., Pesticide, Tractor)" required>
+                            <select required>
+                                <option value="">Rent or Sale?</option>
+                                <option>Rent</option>
+                                <option>Sale</option>
+                            </select>
+                            <input type="number" placeholder="Price (e.g., 50 for rent/day)" required step="0.01">
+                            <input type="text" placeholder="Location (e.g., Warehouse X)" required>
+                            <input type="number" placeholder="Quantity Available (e.g., 10 units)" min="1">
+                            <label style="font-size: 14px; color: var(--text-color); margin-bottom: 5px;">Upload Image/Document</label>
+                            <input type="file" accept="image/*">
+                        </div>
+                        <button type="submit">Post Listing</button>
+                    </form>
+                `;
+            }
+        }
+
+        function toggleLogisticForm() {
+            const type = document.getElementById('logistic-type').value;
+            document.getElementById('delivery-form').style.display = type === 'delivery' ? 'block' : 'none';
+            document.getElementById('provider-form').style.display = type === 'provider' ? 'block' : 'none';
+        }
+
+        // FAB Menu
+        function toggleFabMenu() {
+            const menu = document.getElementById('fab-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Popups
+        function showPopup(id) {
+            document.getElementById(id + '-popup').classList.add('active');
+        }
+
+        function closePopup(id) {
+            document.getElementById(id + '-popup').classList.remove('active');
+        }
+
+        function showPaymentPopup() {
+            closePopup('buy');
+            showPopup('payment');
+        }
+
+        // Preview Image
+        function previewImage(input, id) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById(id).src = e.target.result;
+                    document.getElementById(id).style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Expand Card Detail
+        function expandCard(card) {
+            const detail = card.querySelector('.detail');
+            detail.style.display = detail.style.display === 'none' || detail.style.display === '' ? 'block' : 'none';
+        }
+    </script>
